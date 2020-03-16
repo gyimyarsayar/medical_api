@@ -10,10 +10,10 @@
 ## After cloning medical_api (Note from Htet Lin Maung)
 
 1. Type these commands under project folder 
-- [composer install].
-- [npm i]
-- [cp .env.example .env]
-- [php artisan key:generate]
+- composer install.
+- npm i
+- cp .env.example .env
+- php artisan key:generate
 
 2. create database
 3. migrate database
