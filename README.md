@@ -7,6 +7,17 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## After cloning medical_api (Note from Htet Lin Maung)
+
+1. Type these commands under project folder 
+    composer install
+    npm i
+    cp .env.example .env
+    php artisan key:generate
+
+2. create database
+3. migrate database
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
