@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Nurse extends Model
+class Pharmistist extends Model
 {
     use SoftDeletes;
     protected $fillable = ['name', 'performance', 'work_exp', 'user_id'];

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Doctor;
 use App\Http\Controllers\Controller;
+use App\SideEffect;
 use Illuminate\Http\Request;
 
-class DoctorController extends Controller
+class SideEffectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,12 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
-        foreach ($doctors as $doctor)
+        $sideeffects = SideEffect::all();
+        foreach ($sideeffects as $sideeffect)
         {
-            $doctor[ 'expertises' ] = $doctor->expertises;
-            $doctor['user'] = $doctor->user;
+            $sideeffect['drugs'] = $sideeffect->drugs;
         }
-
-        return [ 'message' => 'Successful', 'data' => $doctors ];
+        return ['message' => 'Successful', 'data' => $sideeffects];
     }
 
     /**
@@ -33,13 +31,14 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor = Doctor::create($request->all());
-        $expertises = $request->expertises;
-        foreach($expertises as $expertise)
+        $sideeffect = SideEffect::create($request->all());
+        $drugs = $request->drugs;
+        foreach ($drugs as $drug)
         {
-            $doctor->expertises()->attach($expertise);
+            $sideeffect->drugs()->attach($drug);
         }
-        return [ 'message' => 'Add Successful', 'data' => $doctor ];
+        return ['Add Success' => 'Add Successful', 'data' => $sideeffect];
+
     }
 
     /**
@@ -48,15 +47,9 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Doctor $doctor)
+    public function show($id)
     {
-        $expertises = $doctor->expertises;
-        foreach ($expertises as $expertise)
-        {
-            $doctor[ 'expertises' ] = $expertise->expertises;
-            $doctor['user'] = $expertise->user;
-        }
-        return ['message' => 'successful', 'data' => $doctor];
+        //
     }
 
     /**

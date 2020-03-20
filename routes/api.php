@@ -25,3 +25,8 @@ Route::resource('expertise', 'Api\ExpertiseController');
 Route::resource('nurse', 'Api\NurseController');
 Route::resource('patient', 'Api\PatientController');
 Route::resource('symptom', 'Api\SymptomController');
+Route::resource('disease', 'Api\DiseaseController');
+Route::resource('pharmistist', 'Api\PharmististController');
+Route::resource('drug', 'Api\DrugController');
+Route::resource('sideeffect', 'Api\SideEffectController');
+Route::resource('tretment', 'Api\TretmentController');

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Doctor;
+use App\Disease;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DoctorController extends Controller
+class DiseaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,12 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
-        foreach ($doctors as $doctor)
+        $diseases = Disease::all();
+        foreach ($diseases as $disease)
         {
-            $doctor[ 'expertises' ] = $doctor->expertises;
-            $doctor['user'] = $doctor->user;
+            $disease[ 'symptoms' ] = $disease->symptoms;
         }
-
-        return [ 'message' => 'Successful', 'data' => $doctors ];
+        return ['message' => 'Successful', 'data' => $diseases];
     }
 
     /**
@@ -33,13 +31,13 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor = Doctor::create($request->all());
-        $expertises = $request->expertises;
-        foreach($expertises as $expertise)
+        $disease = Disease::create($request->all());
+        $symptoms = $request->symptoms;
+        foreach ($symptoms as $symptom)
         {
-            $doctor->expertises()->attach($expertise);
+            $disease->symptoms()->attach($symptom);
         }
-        return [ 'message' => 'Add Successful', 'data' => $doctor ];
+        return ['message' => 'Add Successful', 'data' => $disease];
     }
 
     /**
@@ -48,15 +46,11 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Doctor $doctor)
+    public function show(Disease $disease)
     {
-        $expertises = $doctor->expertises;
-        foreach ($expertises as $expertise)
-        {
-            $doctor[ 'expertises' ] = $expertise->expertises;
-            $doctor['user'] = $expertise->user;
-        }
-        return ['message' => 'successful', 'data' => $doctor];
+        $disease['symptoms'] = $disease->symptoms;
+
+        return ['message' => 'Successful', 'data' => $disease];
     }
 
     /**

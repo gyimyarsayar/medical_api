@@ -16,7 +16,12 @@ class SymptomController extends Controller
     public function index()
     {
         $symptoms = Symptom::all();
-
+        foreach ($symptoms as $symptom)
+        {
+            $symptom['patients'] = $symptom->patients;
+            $symptom['patients'] = $symptom->diseases;
+        }
+        //
         return ['message' => 'successful', 'data' =>$symptoms];
     }
 
@@ -29,7 +34,16 @@ class SymptomController extends Controller
     public function store(Request $request)
     {
         $symptom = Symptom::create($request->all());
-
+        $patients = $request->patients;
+        foreach ($patients as $patient)
+        {
+            $symptom->patients()->attach($patient);
+        }
+        $diseases = $request->diseases;
+        foreach ($diseases as $disease)
+        {
+            $symptom->diseases()->attach($disease);
+        }
         return ['message' => 'Add Successful', 'data' => $symptom];
     }
 
@@ -39,9 +53,12 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Symptom $symptom)
     {
-        //
+        $symptom['patients'] = $symptom->patients;
+        $symptom['diseases'] = $symptom->diseases;
+
+        return ['message' => 'Successful', 'data' => $symptom];
     }
 
     /**

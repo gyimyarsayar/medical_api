@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Doctor;
 use App\Http\Controllers\Controller;
+use App\Pharmistist;
 use Illuminate\Http\Request;
 
-class DoctorController extends Controller
+class PharmististController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,12 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
-        foreach ($doctors as $doctor)
+        $pharmistists = Pharmistist::all();
+        foreach ($pharmistists as $pharmistist)
         {
-            $doctor[ 'expertises' ] = $doctor->expertises;
-            $doctor['user'] = $doctor->user;
+            $pharmistist['user'] = $pharmistist->user;
         }
-
-        return [ 'message' => 'Successful', 'data' => $doctors ];
+        return ['message' => 'Successful', 'data' => $pharmistists];
     }
 
     /**
@@ -33,13 +31,8 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor = Doctor::create($request->all());
-        $expertises = $request->expertises;
-        foreach($expertises as $expertise)
-        {
-            $doctor->expertises()->attach($expertise);
-        }
-        return [ 'message' => 'Add Successful', 'data' => $doctor ];
+        $pharmistist = Pharmistist::create($request->all());
+        return ['message' => 'Add Successful', 'data' => $pharmistist];
     }
 
     /**
@@ -48,15 +41,11 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Doctor $doctor)
+    public function show(Pharmistist $pharmistist)
     {
-        $expertises = $doctor->expertises;
-        foreach ($expertises as $expertise)
-        {
-            $doctor[ 'expertises' ] = $expertise->expertises;
-            $doctor['user'] = $expertise->user;
-        }
-        return ['message' => 'successful', 'data' => $doctor];
+        $pharmistist['user'] = $pharmistist->user;
+
+        return ['message' => 'Successful', 'data' => $pharmistist];
     }
 
     /**

@@ -17,6 +17,7 @@ class CreateNursesTable extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('performance', 100);
+            $table->text('work_exp');
             $table->integer('user_id');
             $table->softDeletes();
             $table->timestamps();

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Doctor extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['name', 'performance', 'user_id'];
+    protected $fillable = ['name', 'performance', 'work_exp', 'user_id'];
     public function expertises()
     {
         return $this->belongsToMany('App\Expertise');

@@ -14,4 +14,8 @@ class Symptom extends Model
     {
         return $this->belongsToMany('App\Patient');
     }
+    public function diseases()
+    {
+        return $this->belongsToMany('App\Disease');
+    }
 }

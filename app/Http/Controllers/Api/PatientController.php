@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Patient;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -14,7 +15,13 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        $patients = Patient::all();
+        foreach ($patients as $patient)
+        {
+            $patient['symptoms'] = $patient->symptoms;
+            $patient['user'] = $patient->user;
+        }
+        return ['message' => 'Success', 'data' => $patients];
     }
 
     /**
@@ -25,7 +32,13 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $patient = Patient::create($request->all());
+        $symptoms = $request->symptoms;
+        foreach ($symptoms as $symptom)
+        {
+            $patient->symptoms()->attach($symptom);
+        }
+        return ['message' => 'Add Successful', 'data' => $patient];
     }
 
     /**
@@ -34,9 +47,15 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Patient $patient)
     {
-        //
+        $symptoms = $patient->symptoms;
+        foreach ( $symptoms as $symptom) {
+            $patient['user'] = $patient->user;
+            $patient['symptoms'] = $symptom->symptoms;
+        }
+        // dd($patient);
+        return ['message' => 'Success', 'data' => $patient];
     }
 
     /**
